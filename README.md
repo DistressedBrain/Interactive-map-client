@@ -3,7 +3,7 @@
 A native Windows app for the interactive game maps. It shows the same maps and
 data as the website, in one window, without a browser.
 
-Games so far: **Wuthering Waves** (10 worlds) and **Neverness to Everness**.
+Games so far: **Wuthering Waves** (10 maps) and **Neverness to Everness**.
 
 ## Running it
 
