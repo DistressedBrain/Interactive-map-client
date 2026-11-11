@@ -72,49 +72,6 @@ nuget.config            adds an optional local package folder (see Building)
 The map keeps at most 96 decoded tiles in memory (about 1 MB each) and drops the
 least recently drawn ones.
 
-## Building
-
-Needs the .NET 10 SDK.
-
-```
-dotnet build InteractiveMap.csproj
-```
-
-The exe is under `bin\x64\Debug\...\win-x64\`. A development build reads the map
-data from the website checkout, so keep `interactive-map` next to this folder.
-
-If `dotnet restore` hangs on a slow connection: NuGet cannot resume a dropped
-download, and the Windows App SDK runtime package is 164 MB. Download the
-`.nupkg` files with a tool that resumes (for example `curl.exe -C -`) into
-`%USERPROFILE%\.nuget\localfeed`; `nuget.config` already lists that folder as a
-package source.
-
-`EnableMsixTooling` stays `true` in the project file even though the app is
-unpackaged. Without it, `dotnet publish` leaves out the app's `.pri` and `.xbf`
-files and the published exe crashes at start.
-
-## Making a release
-
-```
-powershell -ExecutionPolicy Bypass -File make-release.ps1 -Version 1.0.0
-```
-
-This publishes a self-contained build, copies in the map data the client reads
-(not the web pages or the extraction tools), and zips it:
-
-```
-release\InteractiveMap\InteractiveMap.exe
-release\InteractiveMap-1.0.0-win-x64.zip
-```
-
-Pass `-Maps <folder>` if the website checkout is not at `..\interactive-map`.
-
-## Adding a game
-
-1. Write a loader in `Loaders.cs` that fills a `GameMap` from the game's
-   generated data, and add the game to `GameCatalog.Find`.
-2. Put its icon in `Assets\games\<id>.png`.
-3. List its data folders in `make-release.ps1`.
 
 ## Not there yet
 
